@@ -16,9 +16,5 @@
 
 **********************************
 
-### About:
-
-Crypto is a terminal application written in C++ for encrypting/decrypting files.
-
 # Warning:
 **Crypto is strictly experimental, and not to be used for real world security applications.**
