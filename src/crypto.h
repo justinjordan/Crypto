@@ -2,11 +2,11 @@
 #define CRYPTO_H
 
 #include <climits>
+#include "types.h"
 
 class Crypto {
 public:
-    static unsigned char encryptChar( unsigned char c, unsigned char key );
-    static unsigned char decryptChar( unsigned char c, unsigned char key );
+    static char encode( char data, char key );
 };
 
 #endif

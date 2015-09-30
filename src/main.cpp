@@ -15,35 +15,34 @@ int main(int argc, char* argv[]) {
             throw 0;
 
         string inputFile = argv[2];
+        string outputFile;
         string cipher = argv[3];
         string cryptExt = ".crypto";
 
         // ENCRYPT
         if ( strcmp(argv[1], "-e") == 0 || strcmp(argv[1], "--encrypt") == 0 ) {
 
-            ifstream ifs;
-            ifs.open(inputFile, ifstream::in | ifstream::binary);
+            outputFile = inputFile + cryptExt;
 
-            string outputFile = inputFile;
-            outputFile += cryptExt;
-            ofstream ofs;
-            ofs.open(outputFile, ofstream::out | ifstream::binary);
+            ifstream ifs(inputFile, ios::in|ios::binary);
+            ofstream ofs(outputFile, ios::out|ios::binary);
 
-            // Display Message
-            cout << "  Encrypting " << argv[2] << "... ";
+            char input, output, key;
 
-            unsigned char c = ifs.get();
-            for ( int i = 0; ifs.good(); i++ ) {
-                c = Crypto::encryptChar(c, cipher[ i % cipher.length() ]);
+            ifs.seekg(0, ios::end); // set pointer to end of file
+            int fileLength = ifs.tellg();
+            ifs.seekg(0, ios::beg);
 
-                ofs << c;
-                c = ifs.get();
+            for ( int i = 0; ifs.read(input, 1); i++ ) {
+                key = cipher[ i % cipher.length() ];
+                output = Crypto::encode(input, key);
+                ofs.write(output, 1);
             }
 
             ifs.close();
             ofs.close();
 
-            remove(argv[2]);
+            remove(argv[2]); // remove source file
 
         // DECRYPT
         } else if ( strcmp(argv[1], "-d") == 0 || strcmp(argv[1], "--decrypt") == 0 ) {
@@ -59,12 +58,12 @@ int main(int argc, char* argv[]) {
                 throw 1;
             cout << "\n\n";
 
-            ifstream ifs;
-            ifs.open(inputFile, ifstream::in | ifstream::binary);
-
             string outputFile = inputFile.substr(0, inputFile.length() - cryptExt.length());
+
+            ifstream ifs;
+            ifs.open(inputFile, ios::in | ios::binary);
             ofstream ofs;
-            ofs.open(outputFile, ofstream::out | ifstream::binary);
+            ofs.open(outputFile, ios::out | ios::binary);
 
             // Display Message
             cout << "  Decrypting " << argv[2] << "... ";
