@@ -22,12 +22,12 @@ int main(int argc, char* argv[]) {
         if ( strcmp(argv[1], "-e") == 0 || strcmp(argv[1], "--encrypt") == 0 ) {
 
             ifstream ifs;
-            ifs.open(inputFile, ifstream::in | ifstream::binary);
+            ifs.open(inputFile, ios::in | ios::binary);
 
             string outputFile = inputFile;
             outputFile += cryptExt;
             ofstream ofs;
-            ofs.open(outputFile, ofstream::out | ifstream::binary);
+            ofs.open(outputFile, ios::out | ios::binary);
 
             // Display Message
             cout << "  Encrypting " << argv[2] << "... ";
@@ -60,11 +60,11 @@ int main(int argc, char* argv[]) {
             cout << "\n\n";
 
             ifstream ifs;
-            ifs.open(inputFile, ifstream::in | ifstream::binary);
+            ifs.open(inputFile, ios::in | ios::binary);
 
             string outputFile = inputFile.substr(0, inputFile.length() - cryptExt.length());
             ofstream ofs;
-            ofs.open(outputFile, ofstream::out | ifstream::binary);
+            ofs.open(outputFile, ios::out | ios::binary);
 
             // Display Message
             cout << "  Decrypting " << argv[2] << "... ";
