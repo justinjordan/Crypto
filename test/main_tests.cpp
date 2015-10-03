@@ -39,33 +39,11 @@ SCENARIO( "byte is encrypted, then decrypted", "[encrypt]" ) {
     }
 }
 
-SCENARIO( "is_prime function works", "[is_prime]") {
+SCENARIO( "encrypt file with given password key" ) {
 
-    REQUIRE( Crypto::is_prime(2) == true );
-    REQUIRE( Crypto::is_prime(3) == true );
-    REQUIRE( Crypto::is_prime(5) == true );
-    REQUIRE( Crypto::is_prime(7) == true );
-    REQUIRE( Crypto::is_prime(11) == true );
+    GIVEN( "strings representing the filename and the password key" ) {
 
-    REQUIRE( Crypto::is_prime(4) == false );
-    REQUIRE( Crypto::is_prime(39) == false );
-    REQUIRE( Crypto::is_prime(27) == false );
-    REQUIRE( Crypto::is_prime(36) == false );
-    REQUIRE( Crypto::is_prime(20) == false );
+        string password = "password123";
 
-}
-
-SCENARIO( "a series of 16 random prime bytes are generated", "[primesequence]" ) {
-
-        GIVEN( "an empty char array" ) {
-            char num[16];
-
-            WHEN( "prime hash is generated" ) {
-                Crypto::generatePrimeSequence(num);
-
-                for ( int i = 0; i < sizeof(num); i++ ) {
-                    CHECK( Crypto::is_prime(num[i]) );
-                }
-            }
-        }
+    }
 }
