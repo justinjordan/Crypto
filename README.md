@@ -17,4 +17,4 @@
 **********************************
 
 # Warning:
-**Crypto is strictly experimental, and not to be used for real world security applications.**
+**Crypto is still under development, and not ready for use in real world security applications.**
