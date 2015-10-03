@@ -27,16 +27,18 @@ int main(int argc, char* argv[]) {
             ifstream ifs(inputFile, ios::in|ios::binary);
             ofstream ofs(outputFile, ios::out|ios::binary);
 
-            char input, output, key;
+            char input, key;
 
             ifs.seekg(0, ios::end); // set pointer to end of file
             int fileLength = ifs.tellg();
             ifs.seekg(0, ios::beg);
 
-            for ( int i = 0; ifs.read(input, 1); i++ ) {
+            input = ifs.get();
+            for ( int i = 0; ifs.good(); i++ ) {
                 key = cipher[ i % cipher.length() ];
-                output = Crypto::encode(input, key);
-                ofs.write(output, 1);
+                ofs << Crypto::encode(input, key);
+
+                input = ifs.get();
             }
 
             ifs.close();
@@ -46,7 +48,7 @@ int main(int argc, char* argv[]) {
 
         // DECRYPT
         } else if ( strcmp(argv[1], "-d") == 0 || strcmp(argv[1], "--decrypt") == 0 ) {
-
+/*
             char answer;
             cout << "  WARNING:" << endl <<
             "  If the password you provided is incorrect" << endl <<
@@ -80,6 +82,7 @@ int main(int argc, char* argv[]) {
             ofs.close();
 
             remove(argv[2]);
+*/
         } else {
             throw 0;
         }
