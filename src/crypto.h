@@ -2,11 +2,18 @@
 #define CRYPTO_H
 
 #include <climits>
+#include <string>
+#include <vector>
+#include <stdlib.h>
+#include <time.h>
 
 class Crypto {
 public:
-    static unsigned char encryptChar( unsigned char c, unsigned char key );
-    static unsigned char decryptChar( unsigned char c, unsigned char key );
+    static const std::string extension;
+    static char encode( char data, char key );
+    static bool is_crypto_file( std::string filename );
+    static void generatePrimeSequence( char (&target)[16] );
+    static bool is_prime( char byte );
 };
 
 #endif
