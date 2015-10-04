@@ -14,81 +14,27 @@ int main(int argc, char* argv[]) {
         if ( argc < 4 )
             throw 0;
 
-        string inputFile = argv[2];
-        string outputFile;
-        string cipher = argv[3];
-        string cryptExt = ".crypto";
+        std::string inputFile = argv[2];
+        std::string password = argv[3];
 
-        // ENCRYPT
+        // ==== ENCRYPT ====
         if ( strcmp(argv[1], "-e") == 0 || strcmp(argv[1], "--encrypt") == 0 ) {
 
-            outputFile = inputFile + cryptExt;
+            cout << "  Encrypting " << inputFile << "...";
 
-            ifstream ifs(inputFile, ios::in|ios::binary);
-            ofstream ofs(outputFile, ios::out|ios::binary);
+            Crypto::encryptFile(inputFile, password);
 
-            char input, key;
-
-            ifs.seekg(0, ios::end); // set pointer to end of file
-            int fileLength = ifs.tellg();
-            ifs.seekg(0, ios::beg);
-
-            input = ifs.get();
-            for ( int i = 0; ifs.good(); i++ ) {
-                key = cipher[ i % cipher.length() ];
-                ofs << Crypto::encode(input, key);
-
-                input = ifs.get();
-            }
-
-            ifs.close();
-            ofs.close();
-
-            remove(argv[2]); // remove source file
-
-        // DECRYPT
+        // ==== DECRYPT ====
         } else if ( strcmp(argv[1], "-d") == 0 || strcmp(argv[1], "--decrypt") == 0 ) {
-/*
-            char answer;
-            cout << "  WARNING:" << endl <<
-            "  If the password you provided is incorrect" << endl <<
-            "  the file will be reverse encrypted." << endl <<
-            endl <<
-            "  Would you like to continue? (y or n)  ";
-            cin >> answer;
-            if ( answer == 'n' || answer == 'N' )
-                throw 1;
-            cout << "\n\n";
 
-            string outputFile = inputFile.substr(0, inputFile.length() - cryptExt.length());
 
-            ifstream ifs;
-            ifs.open(inputFile, ios::in | ios::binary);
-            ofstream ofs;
-            ofs.open(outputFile, ios::out | ios::binary);
 
-            // Display Message
-            cout << "  Decrypting " << argv[2] << "... ";
-
-            unsigned char c = ifs.get();
-            for ( int i = 0; ifs.good(); i++ ) {
-                c = Crypto::decryptChar(c, cipher[ i % cipher.length() ]);
-
-                ofs << c;
-                c = ifs.get();
-            }
-
-            ifs.close();
-            ofs.close();
-
-            remove(argv[2]);
-*/
         } else {
             throw 0;
         }
 
 
-        cout << "Done!" << endl;
+        cout << "  Done!" << endl;
 
     } catch ( int e ) {
 
