@@ -39,11 +39,18 @@ SCENARIO( "byte is encrypted, then decrypted", "[encrypt]" ) {
     }
 }
 
-SCENARIO( "encrypt file with given password key" ) {
+SCENARIO( "encrypt password with SHA256 algorithm", "[gethash]" ) {
 
-    GIVEN( "strings representing the filename and the password key" ) {
+    GIVEN( "string representing password" ) {
 
-        string password = "password123";
+        WHEN( "password is converted to SHA256 hash" ) {
+
+            std::string hash = Crypto::getHash("123456seven");
+
+            REQUIRE( hash == "f30cc8de61ec96e84fc3d279636c225906f12a60ecc8fe8c8a1bae2e2fc024bc" );
+
+        }
 
     }
+
 }

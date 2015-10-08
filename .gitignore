@@ -1,2 +1,3 @@
 .DS_Store
 bin/crypto
+test/main_tests
