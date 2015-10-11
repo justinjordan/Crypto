@@ -75,9 +75,7 @@ int main(int argc, char* argv[]) {
                 "  * Beta Version - (c) 2015 Justin Jordan *" << std::endl <<
                 "  *****************************************" << std::endl <<
                 std::endl <<
-                "    Usage:" << std::endl <<
-                std::endl <<
-                "        crypto <mode> <file> <cipher>" << std::endl <<
+                "    Usage:  crypto <mode> <file> <cipher>" << std::endl <<
                 std::endl <<
                 "    Modes:" << std::endl <<
                 std::endl <<
