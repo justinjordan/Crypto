@@ -3,6 +3,7 @@
 #include <string>
 #include <stdio.h>
 #include <csignal>
+#include <vector>
 #include "crypto.h"
 
 void close_handler(int signum) {
@@ -27,36 +28,50 @@ int main(int argc, char* argv[]) {
 
     try {
 
-        if ( argc < 4 )
-            throw 0;
+        // Parse arguments
+        std::vector<std::string> files;
+        std::string password;
 
-        inputFile = argv[2];
-        password = argv[3];
+        for ( int i = 1; i < argc; i++ ) {
 
-        // ==== ENCRYPT ====
-        if ( strcmp(argv[1], "-e") == 0 || strcmp(argv[1], "--encrypt") == 0 ) {
+            if ( i == argc-1 ) {
+                password = argv[i];
+            } else {
+                files.push_back(argv[i]);
+            }
 
-            std::cout << "  Encrypting " << inputFile << "...\n\n";
+        }
 
-            if ( Crypto::is_crypto_file(inputFile) )
-                throw 3;
+        if ( files.empty() || password.empty() ) {
+            throw 0; // show info dialog
+        }
 
-            if ( !Crypto::encryptFile(inputFile, password) )
-                throw 2;
+        for ( int i = 0; i < files.size(); i++ ) {
 
-        // ==== DECRYPT ====
-        } else if ( strcmp(argv[1], "-d") == 0 || strcmp(argv[1], "--decrypt") == 0 ) {
+            try {
+                if ( Crypto::is_crypto_file(files[i]) ) {
 
-            std::cout << "  Decrypting " << inputFile << "...\n\n";
+                    /* ==== DECRYPT ==== */
 
-            if ( !Crypto::is_crypto_file(inputFile) )
-                throw 4;
+                    printf( "  Decrypting %s...\n\n", files[i].c_str() );
 
-            if ( !Crypto::decryptFile(inputFile, password) )
-                throw 2;
+                    if ( !Crypto::decryptFile(files[i], password) )
+                        throw "Problem decrypting file!";
 
-        } else {
-            throw 0;
+                } else {
+
+                    /* ==== ENCRYPT ==== */
+
+                    printf( "  Encrypting %s...\n\n", files[i].c_str() );
+
+                    if ( !Crypto::encryptFile(files[i], password) )
+                        throw "Problem encrypting file!";
+
+                }
+            } catch ( const char* e ) {
+                printf("%s\n\n", e);
+            }
+
         }
 
     } catch ( int e ) {

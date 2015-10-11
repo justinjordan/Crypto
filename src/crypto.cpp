@@ -85,8 +85,7 @@ bool Crypto::encryptFile( std::string filename, std::string password ) {
     for ( int x = 0; x < progressBarWidth; x++ ) {
         printf("=");
     }
-    printf("]  100%%  ");
-    printf("\n\n  Done!\n");
+    printf("]  100%%\n\n");
 
     // Show cursor
     printf("\e[?25h");
