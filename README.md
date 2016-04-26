@@ -1,5 +1,9 @@
 # Crypto
 
+# Warning:
+**Crypto is still in development, and is not ready for use in production.**
+
+**********************************
 
 ### Usage:
 
@@ -13,8 +17,3 @@
 ### Example:
 
     crypto -e file.txt password123
-
-**********************************
-
-# Warning:
-**Crypto is still in development, and is not ready for use in production.**

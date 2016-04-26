@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <openssl/sha.h>
+#include <jcrypt.h>
 
 class Crypto {
 public:

@@ -9,7 +9,7 @@
 void close_handler(int signum) {
 
     // Print leave message
-    printf ("\n\n  Good bye!\n\n");
+    printf ("\n\n  Process interupted!\n\n");
 
     // Show cursor
     printf("\e[?25h");
