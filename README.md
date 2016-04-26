@@ -1,7 +1,7 @@
 # Crypto
 
 # Warning:
-**Crypto is still in development, and is not ready for use in production.**
+**Crypto is experimental and not suitable for use in production.  In other words, it's not secure.**
 
 **********************************
 
